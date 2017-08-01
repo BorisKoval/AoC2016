@@ -1,7 +1,7 @@
 ﻿<Window x:Class="AoC_2016.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AoC 2016" Height="350" Width="525">
+        Title="AoC 2016" Height="499" Width="600">
     <Grid>
         <Button Content="Day 1\1" Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="119,13,0,0" Name="textBoxDay1_1Path" VerticalAlignment="Top" Width="188" Text="C:\AoC2016_Day1_1.txt" />
@@ -15,5 +15,11 @@
         <TextBox Height="23" HorizontalAlignment="Left" Margin="119,100,0,0" Name="textBoxDay3_1Path" Text="C:\AoC2016_Day3_1.txt" VerticalAlignment="Top" Width="132" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="347,100,0,0" Name="textBoxDay3_1Answer" VerticalAlignment="Top" Width="120" />
         <Button Content="Day 3\1" Height="23" HorizontalAlignment="Left" Margin="12,100,0,0" Name="buttonDay3_1" VerticalAlignment="Top" Width="75" Click="buttonDay3_1_Click" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,168,0,0" Name="textBoxDay4_1Path" Text="C:\AoC2016_Day4_1.txt" VerticalAlignment="Top" Width="132" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="347,168,0,0" Name="textBoxDay4_1Answer" VerticalAlignment="Top" Width="120" />
+        <Button Content="Day 4\1" Height="23" HorizontalAlignment="Left" Margin="12,168,0,0" Name="buttonDay4_1" VerticalAlignment="Top" Width="75" Click="buttonDay4_1_Click" />
+        <Button Content="Day 4\2" Height="23" HorizontalAlignment="Left" Margin="12,206,0,0" Name="buttonDay4_2" VerticalAlignment="Top" Width="75" Click="buttonDay4_2_Click" />
+        <TextBox Height="211" HorizontalAlignment="Left" Margin="347,197,0,0" Name="textBoxDay4_2Answer" VerticalAlignment="Top" Width="219" VerticalScrollBarVisibility="Visible" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,206,0,0" Name="textBoxDay4_2Path" Text="C:\AoC2016_Day4_2.txt" VerticalAlignment="Top" Width="132" />
     </Grid>
 </Window>

@@ -275,6 +275,74 @@ namespace AoC_2016
             return count;
         }
 
+        public int GetDay4_1(string filePath)
+        {
+            int IDsum = 0;
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+
+            SortedDictionary<char, int> room = new SortedDictionary<char, int>();
+            
+            while ((line = strReader.ReadLine()) != null)
+            {
+                room.Clear();
+
+                foreach (char ch in line)
+                {
+                    if (ch == '-')
+                        continue;
+                    else if (Char.IsDigit(ch))
+                        break;
+                    if (!room.ContainsKey(ch))
+                        room.Add(ch, 1);
+                    else
+                        room[ch]++;
+                }
+
+                var sortRoom = from pair in room
+                               orderby pair.Value descending
+                               select pair;
+
+                string temp="";
+                foreach (KeyValuePair<char, int> pair in sortRoom)
+                {
+                    temp += pair.Key;
+                    if (temp.Length == 5)
+                        break;
+                }
+                
+                if (temp == line.Substring(line.Length - 6, 5))
+                    IDsum += Convert.ToInt32(line.Substring(line.Length - 10, 3));
+                }
+            return IDsum;
+        }
+
+        public string GetDay4_2(string filePath)
+        {
+            string answer = "";
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+
+            while ((line = strReader.ReadLine()) != null)
+            {
+                string result = "";
+                foreach (char ch in line)
+                {
+                    if (Char.IsDigit(ch))
+                        break;
+
+                    if (ch == '-')
+                    {
+                        result += ' ';
+                        continue;
+                    }
+                    result += (char)((ch - 97 + Convert.ToInt16(line.Substring(line.Length - 10, 3))) % 26 + 97);
+                }
+                answer += result + line.Substring(line.Length - 10, 3)+"\r\n";
+            }
+            return answer;
+        }
+
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             textBoxDay2_1Answer.Text = GetDay2_1(Convert.ToString(textBoxDay2_1Path.Text)).ToString();
@@ -288,6 +356,16 @@ namespace AoC_2016
         private void buttonDay3_1_Click(object sender, RoutedEventArgs e)
         {
             textBoxDay3_1Answer.Text = GetDay3_1(Convert.ToString(textBoxDay3_1Path.Text)).ToString();
+        }
+
+        private void buttonDay4_1_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxDay4_1Answer.Text = GetDay4_1(Convert.ToString(textBoxDay4_1Path.Text)).ToString();
+        }
+
+        private void buttonDay4_2_Click(object sender, RoutedEventArgs e)
+        {
+            textBoxDay4_2Answer.Text = GetDay4_2(Convert.ToString(textBoxDay4_2Path.Text)).ToString();
         }
 
     }
