@@ -13,6 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
+using System.Security.Cryptography;
+using System.Threading;
 
 namespace AoC_2016
 {
@@ -24,7 +27,20 @@ namespace AoC_2016
         public MainWindow()
         {
             InitializeComponent();
+            System.Windows.Threading.DispatcherTimer dsTimer = new System.Windows.Threading.DispatcherTimer();
         }
+        
+
+        //public string timer()
+        //{
+        //    string time = "";
+            
+
+
+
+        //    return time;
+        //}
+
 
         public double GetDay1_1(string filePath)
         {
@@ -343,6 +359,84 @@ namespace AoC_2016
             return answer;
         }
 
+        public string GetDay5_1(string filePath)
+        {
+            string pass = "";
+            StreamReader strReader = new StreamReader(filePath);
+            string line = strReader.ReadLine();
+            strReader.Close();
+
+            int addition = 0;
+            string hash ="";
+
+            while (pass.Length != 8)
+            {
+                while (hash == "" || hash.Substring(0, 5) != "00000")
+                {
+                    using (MD5 md5Hash = MD5.Create())
+                    {
+                        hash = GetMd5Hash(md5Hash, line + addition);
+                    }
+                    
+                    addition++;
+
+                }
+                pass += hash.Substring(5, 1);
+
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    hash = GetMd5Hash(md5Hash, line + addition);
+                }
+            }           
+
+            return String.Format("HASH: {0} || str: {1}", hash, pass);
+        }
+        static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
+        }
+
+        public string GetDay6_1(string filePath)
+        {
+            string message = "";
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+            Dictionary<char, int>[] messageDict = new Dictionary<char, int>[8]
+            {
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),                
+                new Dictionary<char, int>(),                
+                new Dictionary<char, int>()
+            };           
+
+            while ((line = strReader.ReadLine()) != null)
+            {
+                for (int i = 0; i <= 7; i++ )
+                {
+                    if (!messageDict[i].ContainsKey(Convert.ToChar(line.Substring(i,1))))
+                        messageDict[i].Add(Convert.ToChar(line.Substring(i, 1)), 1);
+                    else
+                        messageDict[i][Convert.ToChar(line.Substring(i, 1))]++;
+                }
+             }
+            strReader.Close();
+            for (int i = 0; i <= 7; i++)
+            {
+                message += messageDict[i].First(x => x.Value == messageDict[i].Values.Max()).Key;
+            }
+            return message;
+        }
+
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             textBoxDay2_1Answer.Text = GetDay2_1(Convert.ToString(textBoxDay2_1Path.Text)).ToString();
@@ -367,6 +461,32 @@ namespace AoC_2016
         {
             textBoxDay4_2Answer.Text = GetDay4_2(Convert.ToString(textBoxDay4_2Path.Text)).ToString();
         }
+
+        private void buttonPathSelect_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+                textBoxAnyDayPath.Text = openFileDialog.FileName;
+        }
+
+        private void buttonAnyDay_Click(object sender, RoutedEventArgs e)
+        {
+            //switch (RadioButton.IsCheckedProperty.
+
+            if (radioButtonDay5_1.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay5_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            //else if (radioButtonDay5_2.IsChecked.Value)
+            //{
+            //    textBoxAnyDayAnswer.Text = GetDay5_2(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            //}
+            else if (radioButtonDay6_1.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay6_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+        }
+
 
     }
 }

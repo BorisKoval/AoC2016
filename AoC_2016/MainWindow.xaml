@@ -1,7 +1,7 @@
 ﻿<Window x:Class="AoC_2016.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AoC 2016" Height="499" Width="600">
+        Title="AoC 2016" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="529" d:DesignWidth="644" SizeToContent="WidthAndHeight">
     <Grid>
         <Button Content="Day 1\1" Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="119,13,0,0" Name="textBoxDay1_1Path" VerticalAlignment="Top" Width="188" Text="C:\AoC2016_Day1_1.txt" />
@@ -19,7 +19,14 @@
         <TextBox Height="23" HorizontalAlignment="Left" Margin="347,168,0,0" Name="textBoxDay4_1Answer" VerticalAlignment="Top" Width="120" />
         <Button Content="Day 4\1" Height="23" HorizontalAlignment="Left" Margin="12,168,0,0" Name="buttonDay4_1" VerticalAlignment="Top" Width="75" Click="buttonDay4_1_Click" />
         <Button Content="Day 4\2" Height="23" HorizontalAlignment="Left" Margin="12,206,0,0" Name="buttonDay4_2" VerticalAlignment="Top" Width="75" Click="buttonDay4_2_Click" />
-        <TextBox Height="211" HorizontalAlignment="Left" Margin="347,197,0,0" Name="textBoxDay4_2Answer" VerticalAlignment="Top" Width="219" VerticalScrollBarVisibility="Visible" />
+        <TextBox Height="60" HorizontalAlignment="Left" Margin="347,197,0,0" Name="textBoxDay4_2Answer" VerticalAlignment="Top" Width="219" VerticalScrollBarVisibility="Visible" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="119,206,0,0" Name="textBoxDay4_2Path" Text="C:\AoC2016_Day4_2.txt" VerticalAlignment="Top" Width="132" />
+        <Button Content="Day Btn" Height="23" HorizontalAlignment="Left" Margin="12,263,0,0" Name="buttonAnyDay" VerticalAlignment="Top" Width="75" Click="buttonAnyDay_Click" />
+        <TextBox Height="62" HorizontalAlignment="Left" Margin="347,263,0,0" Name="textBoxAnyDayAnswer" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" Width="219" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="119,263,0,0" Name="textBoxAnyDayPath" Text="C:\AoC2016_Day6_1.txt" VerticalAlignment="Top" Width="132" />
+        <Button Content="..." Height="23" HorizontalAlignment="Left" Margin="275,263,0,0" Name="buttonPathSelect" VerticalAlignment="Top" Width="32" Click="buttonPathSelect_Click" />
+        <RadioButton Content="DAY 5.1" Height="16" HorizontalAlignment="Left" Margin="12,303,0,0" Name="radioButtonDay5_1" VerticalAlignment="Top" />
+        <RadioButton Content="DAY 5.2" Height="16" HorizontalAlignment="Left" Margin="12,325,0,0" Name="radioButtonDay5_2" VerticalAlignment="Top" />
+        <RadioButton Content="DAY 6.1" Height="16" HorizontalAlignment="Left" Margin="12,347,0,0" Name="radioButtonDay6_1" VerticalAlignment="Top" IsChecked="True" />
     </Grid>
 </Window>
