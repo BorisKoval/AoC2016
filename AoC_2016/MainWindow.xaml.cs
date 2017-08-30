@@ -27,20 +27,7 @@ namespace AoC_2016
         public MainWindow()
         {
             InitializeComponent();
-            System.Windows.Threading.DispatcherTimer dsTimer = new System.Windows.Threading.DispatcherTimer();
         }
-        
-
-        //public string timer()
-        //{
-        //    string time = "";
-            
-
-
-
-        //    return time;
-        //}
-
 
         public double GetDay1_1(string filePath)
         {
@@ -109,7 +96,7 @@ namespace AoC_2016
 
             StreamReader strReader = new StreamReader(filePath);
             string line = "";
-            
+
             int i = 1, j = 1;
             while ((line = strReader.ReadLine()) != null)
             {
@@ -239,7 +226,7 @@ namespace AoC_2016
                     }
                     line = line.Remove(0, 1);
                 }
-                code += keypad[i,j].ToString();
+                code += keypad[i, j].ToString();
             }
             strReader.Close();
 
@@ -271,11 +258,11 @@ namespace AoC_2016
             Regex reg = new Regex(@"(\d+)");
             StreamReader strReader = new StreamReader(filePath);
             string line = "";
-            int[,] triangle = new int[100000000000,3];
+            int[,] triangle = new int[100000000000, 3];
             int[] temp = new int[3];
             int n = 0;
             while ((line = strReader.ReadLine()) != null)
-            {                
+            {
                 triangle[n++, 0] = Convert.ToInt32(reg.Matches(line)[0].Value);
                 triangle[n, 1] = Convert.ToInt32(reg.Matches(line)[1].Value);
                 triangle[n, 2] = Convert.ToInt32(reg.Matches(line)[2].Value);
@@ -298,7 +285,7 @@ namespace AoC_2016
             string line = "";
 
             SortedDictionary<char, int> room = new SortedDictionary<char, int>();
-            
+
             while ((line = strReader.ReadLine()) != null)
             {
                 room.Clear();
@@ -319,17 +306,17 @@ namespace AoC_2016
                                orderby pair.Value descending
                                select pair;
 
-                string temp="";
+                string temp = "";
                 foreach (KeyValuePair<char, int> pair in sortRoom)
                 {
                     temp += pair.Key;
                     if (temp.Length == 5)
                         break;
                 }
-                
+
                 if (temp == line.Substring(line.Length - 6, 5))
                     IDsum += Convert.ToInt32(line.Substring(line.Length - 10, 3));
-                }
+            }
             return IDsum;
         }
 
@@ -354,7 +341,7 @@ namespace AoC_2016
                     }
                     result += (char)((ch - 97 + Convert.ToInt16(line.Substring(line.Length - 10, 3))) % 26 + 97);
                 }
-                answer += result + line.Substring(line.Length - 10, 3)+"\r\n";
+                answer += result + line.Substring(line.Length - 10, 3) + "\r\n";
             }
             return answer;
         }
@@ -367,7 +354,7 @@ namespace AoC_2016
             strReader.Close();
 
             int addition = 0;
-            string hash ="";
+            string hash = "";
 
             while (pass.Length != 8)
             {
@@ -377,7 +364,7 @@ namespace AoC_2016
                     {
                         hash = GetMd5Hash(md5Hash, line + addition);
                     }
-                    
+
                     addition++;
 
                 }
@@ -387,7 +374,7 @@ namespace AoC_2016
                 {
                     hash = GetMd5Hash(md5Hash, line + addition);
                 }
-            }           
+            }
 
             return String.Format("HASH: {0} || str: {1}", hash, pass);
         }
@@ -417,24 +404,441 @@ namespace AoC_2016
                 new Dictionary<char, int>(),                
                 new Dictionary<char, int>(),                
                 new Dictionary<char, int>()
-            };           
+            };
 
             while ((line = strReader.ReadLine()) != null)
             {
-                for (int i = 0; i <= 7; i++ )
+                for (int i = 0; i <= 7; i++)
                 {
-                    if (!messageDict[i].ContainsKey(Convert.ToChar(line.Substring(i,1))))
+                    if (!messageDict[i].ContainsKey(Convert.ToChar(line.Substring(i, 1))))
                         messageDict[i].Add(Convert.ToChar(line.Substring(i, 1)), 1);
                     else
                         messageDict[i][Convert.ToChar(line.Substring(i, 1))]++;
                 }
-             }
+            }
             strReader.Close();
             for (int i = 0; i <= 7; i++)
             {
                 message += messageDict[i].First(x => x.Value == messageDict[i].Values.Max()).Key;
             }
             return message;
+        }
+
+        public string GetDay6_2(string filePath)
+        {
+            string message = "";
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+            Dictionary<char, int>[] messageDict = new Dictionary<char, int>[8]
+            {
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>(),
+                new Dictionary<char, int>()
+            };
+
+            while ((line = strReader.ReadLine()) != null)
+            {
+                for (int i = 0; i <= 7; i++)
+                {
+                    if (!messageDict[i].ContainsKey(Convert.ToChar(line.Substring(i, 1))))
+                        messageDict[i].Add(Convert.ToChar(line.Substring(i, 1)), 1);
+                    else
+                        messageDict[i][Convert.ToChar(line.Substring(i, 1))]++;
+                }
+            }
+            strReader.Close();
+            for (int i = 0; i <= 7; i++)
+            {
+                message += messageDict[i].First(x => x.Value == messageDict[i].Values.Min()).Key;
+            }
+            return message;
+        }
+
+        public int GetDay7_1(string filePath)
+        {
+            int ips = 0;
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+            Regex abbaPatrn = new Regex(@"(\w)((?!\1)\w)\2\1");
+            Regex abbaAntiPtrn = new Regex(@"\[\w*(\w)((?!\1)\w)\2\1\w*\]");
+
+            while ((line = strReader.ReadLine()) != null)
+            {
+                if (abbaAntiPtrn.IsMatch(line))
+                    continue;
+                else if (abbaPatrn.IsMatch(line))
+                    ips++;
+            }
+            strReader.Close();
+            return ips;
+        }
+
+        public int GetDay8_1(string filePath)
+        {
+            int pixels = 0;
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+            int[,] screen = new int[6, 50];
+            int[,] tempScreen = new int[6, 50];
+            Regex rect = new Regex(@"rect (\d*)x(\d*)");
+            Regex rotateX = new Regex(@"rotate column x=(\d*) by (\d*)");
+            Regex rotateY = new Regex(@"rotate row y=(\d*) by (\d*)");
+
+            while ((line = strReader.ReadLine()) != null)
+            {
+                if (rect.IsMatch(line))
+                {
+                    int maxI = Convert.ToInt16(rect.Match(line).Groups[2].Value);
+                    int maxJ = Convert.ToInt16(rect.Match(line).Groups[1].Value);
+                    for (int i = 0; i < maxI; i++)
+                    {
+                        for (int j = 0; j < maxJ; j++)
+                        {
+                            screen[i, j] = 1;
+                        }
+                    }
+                }
+                else if (rotateX.IsMatch(line))
+                {
+                    Array.Copy(screen, tempScreen, screen.Length);
+                    int temp = Convert.ToInt16(rotateX.Match(line).Groups[1].Value);
+                    for (int i = 0; i < 6; i++)
+                    {
+                        tempScreen[(i + Convert.ToInt16(rotateX.Match(line).Groups[2].Value)) % 6, temp] = screen[i, temp];
+                    }
+                    Array.Copy(tempScreen, screen, screen.Length);
+                }
+                else if (rotateY.IsMatch(line))
+                {
+                    Array.Copy(screen, tempScreen, screen.Length);
+                    int temp = Convert.ToInt16(rotateY.Match(line).Groups[1].Value);
+                    for (int j = 0; j < 50; j++)
+                    {
+                        tempScreen[temp, (j + Convert.ToInt16(rotateY.Match(line).Groups[2].Value)) % 50] = screen[temp, j];
+                    }
+                    Array.Copy(tempScreen, screen, screen.Length);
+                }
+            }
+            strReader.Close();
+
+            foreach (int num in screen)
+            {
+                if (num == 1) pixels++;
+            }
+            return pixels;
+        }
+
+        public int GetDay8_2(string filePath)
+        {
+            int pixels = 0;
+            StreamReader strReader = new StreamReader(filePath);
+            string line = "";
+            int[,] screen = new int[6, 50];
+            int[,] tempScreen = new int[6, 50];
+            Regex rect = new Regex(@"rect (\d*)x(\d*)");
+            Regex rotateX = new Regex(@"rotate column x=(\d*) by (\d*)");
+            Regex rotateY = new Regex(@"rotate row y=(\d*) by (\d*)");
+
+            while ((line = strReader.ReadLine()) != null)
+            {
+                if (rect.IsMatch(line))
+                {
+                    int maxI = Convert.ToInt16(rect.Match(line).Groups[2].Value);
+                    int maxJ = Convert.ToInt16(rect.Match(line).Groups[1].Value);
+                    for (int i = 0; i < maxI; i++)
+                    {
+                        for (int j = 0; j < maxJ; j++)
+                        {
+                            screen[i, j] = 1;
+                        }
+                    }
+                }
+                else if (rotateX.IsMatch(line))
+                {
+                    Array.Copy(screen, tempScreen, screen.Length);
+                    int temp = Convert.ToInt16(rotateX.Match(line).Groups[1].Value);
+
+                    for (int i = 0; i < 6; i++)
+                    {
+                        tempScreen[(i + Convert.ToInt16(rotateX.Match(line).Groups[2].Value)) % 6, temp] = screen[i, temp];
+                    }
+                    Array.Copy(tempScreen, screen, screen.Length);
+                }
+                else if (rotateY.IsMatch(line))
+                {
+                    Array.Copy(screen, tempScreen, screen.Length);
+                    int temp = Convert.ToInt16(rotateY.Match(line).Groups[1].Value);
+                    for (int j = 0; j < 50; j++)
+                    {
+                        tempScreen[temp, (j + Convert.ToInt16(rotateY.Match(line).Groups[2].Value)) % 50] = screen[temp, j];
+                    }
+                    Array.Copy(tempScreen, screen, screen.Length);
+                }
+            }
+            strReader.Close();
+
+            drawArray(screen, 6, 50);
+            foreach (int num in screen)
+            {
+                if (num == 1) pixels++;
+            }
+            return pixels;
+        }
+
+        public void drawArray(int[,] arr, int I, int J)
+        {
+            for (int i = 0; i < I; i++)
+            {
+                for (int j = 0; j < J; j++)
+                {
+                    textBoxDay4_2Answer.Text += arr[i, j] + "|";
+                }
+                textBoxDay4_2Answer.Text += "\r\n";
+            }
+            textBoxDay4_2Answer.Text += "-------------------------------------------------------\r\n";
+        }
+
+        public int GetDay9_1(string filePath)
+        {
+            int fileLength = 0;
+            StreamReader strReader = new StreamReader(filePath);
+            string line = strReader.ReadToEnd();
+            strReader.Close();
+            Regex delPatrn = new Regex(@"^\((\d*)x(\d*)\)");
+
+            while (line != "")
+            {
+                if (Char.IsLetter(line[0]))
+                {
+                    fileLength++;
+                    line = line.Remove(0, 1);
+                }
+                else if (delPatrn.IsMatch(line))
+                {
+                    int a = Convert.ToInt32(delPatrn.Match(line).Groups[1].Value);
+                    int b = Convert.ToInt32(delPatrn.Match(line).Groups[2].Value);
+                    fileLength += a * b;
+                    line = line.Remove(0, a + delPatrn.Match(line).Length);
+                }
+            }
+
+            return fileLength;
+        }
+
+        public int GetDay10_1(string filePath)
+        {
+            int botNumber = 0;
+            int[,] bots = new int[500, 2];
+            StreamReader fileReader = new StreamReader(filePath);
+            string input = fileReader.ReadToEnd();
+            fileReader.Close();
+            Regex valueToBotPtrn = new Regex(@"value (\d+) goes to bot (\d+)");
+            Regex botToBotsPtrn =
+                new Regex(@"bot (\d+) gives low to bot (\d+) and high to bot (\d+)");
+            Regex valueToOutputPtrn =
+                new Regex(@"bot (\d+) gives low to output \d+ and high to (bot (\d+)|(output \d+))");
+
+            StringReader strReader = new StringReader(input);
+            while (input.Length != 0)
+            {
+                string command = "";
+                if ((command = strReader.ReadLine()) == null)
+                {
+                    strReader.Close();
+                    strReader.Dispose();
+                    strReader = new StringReader(input);
+                    continue;
+                }
+
+                if (valueToBotPtrn.IsMatch(command))
+                {
+                    bots[Convert.ToInt32(valueToBotPtrn.Match(command).Groups[2].Value), freeBotIndex(bots, Convert.ToInt32(valueToBotPtrn.Match(command).Groups[2].Value))] =
+                        Convert.ToInt32(valueToBotPtrn.Match(command).Groups[1].Value);
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+                else if (botToBotsPtrn.IsMatch(command))
+                {
+                    int sourceBot = Convert.ToInt32(botToBotsPtrn.Match(command).Groups[1].Value);
+                    int targetBot1 = Convert.ToInt32(botToBotsPtrn.Match(command).Groups[2].Value);
+                    int targetBot2 = Convert.ToInt32(botToBotsPtrn.Match(command).Groups[3].Value);
+                    if (twoSortedNumbers(bots, sourceBot)[0] == -1)
+                        continue;
+
+                    if ((bots[sourceBot, 0] == 17 && bots[sourceBot, 1] == 61) ||
+                        (bots[sourceBot, 0] == 61 && bots[sourceBot, 1] == 17))
+                    {
+                        botNumber = sourceBot;
+                        break;
+                    }
+                    bots[targetBot1, freeBotIndex(bots, targetBot1)] =
+                        twoSortedNumbers(bots, sourceBot)[0];
+                    bots[targetBot2, freeBotIndex(bots, targetBot2)] =
+                        twoSortedNumbers(bots, sourceBot)[1];
+                    bots[sourceBot, 0] = 0;
+                    bots[sourceBot, 1] = 0;
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+                else if (valueToOutputPtrn.Match(command).Groups[4].Value != "")
+                {
+                    int sourceBot = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[1].Value);
+                    if (twoSortedNumbers(bots, sourceBot)[0] == -1)
+                        continue;
+
+                    if ((bots[sourceBot, 0] == 17 && bots[sourceBot, 1] == 61) ||
+                        (bots[sourceBot, 0] == 61 && bots[sourceBot, 1] == 17))
+                    {
+                        botNumber = sourceBot;
+                        break;
+                    }
+                    bots[sourceBot, 0] = 0;
+                    bots[sourceBot, 1] = 0;
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+                else if (valueToOutputPtrn.IsMatch(command))
+                {
+                    int sourceBot = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[1].Value);
+                    int targetBot = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[3].Value);
+                    if (twoSortedNumbers(bots, sourceBot)[0] == -1)
+                        continue;
+
+                    if ((bots[sourceBot, 0] == 17 && bots[sourceBot, 1] == 61) ||
+                        (bots[sourceBot, 0] == 61 && bots[sourceBot, 1] == 17))
+                    {
+                        botNumber = sourceBot;
+                        break;
+                    }
+
+                    bots[targetBot, freeBotIndex(bots, targetBot)] =
+                        twoSortedNumbers(bots, sourceBot)[1];
+                    bots[sourceBot, 0] = 0;
+                    bots[sourceBot, 1] = 0;
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+            }
+            return botNumber;
+        }
+        public int[] twoSortedNumbers(int[,] array, int n)
+        {
+            int[] sortedNumbers = new int[2] { array[n, 0], array[n, 1] };
+            if (array[n, 0] == 0 || array[n, 1] == 0)
+            {
+                sortedNumbers[0] = -1;
+            }
+            else if (sortedNumbers[0] > sortedNumbers[1])
+            {
+                int temp = sortedNumbers[1];
+                sortedNumbers[1] = sortedNumbers[0];
+                sortedNumbers[0] = temp;
+            }
+            return sortedNumbers;
+        }
+        public int freeBotIndex(int[,] array, int n)
+        {
+            int index = -1;
+            if (array[n, 0] != 0)
+                index = 1;
+            else
+                index = 0;
+            return index;
+        }
+
+        public int GetDay10_2(string filePath)
+        {
+            int[,] bots = new int[500, 2];
+            int[] outputs = new int[3];
+            StreamReader fileReader = new StreamReader(filePath);
+            string input = fileReader.ReadToEnd();
+            fileReader.Close();
+            Regex valueToBotPtrn = new Regex(@"value (\d+) goes to bot (\d+)");
+            Regex botToBotsPtrn =
+                new Regex(@"bot (\d+) gives low to bot (\d+) and high to bot (\d+)");
+            Regex valueToOutputPtrn =
+                new Regex(@"bot (\d+) gives low to output (\d+) and high to (bot (\d+)|(output (\d+)))");
+
+            StringReader strReader = new StringReader(input);
+            while (input.Length != 0)
+            {
+                string command = "";
+                if ((command = strReader.ReadLine()) == null)
+                {
+                    strReader.Close();
+                    strReader.Dispose();
+                    strReader = new StringReader(input);
+                    continue;
+                }
+
+                if (valueToBotPtrn.IsMatch(command))
+                {
+                    bots[Convert.ToInt32(valueToBotPtrn.Match(command).Groups[2].Value), freeBotIndex(bots, Convert.ToInt32(valueToBotPtrn.Match(command).Groups[2].Value))] =
+                        Convert.ToInt32(valueToBotPtrn.Match(command).Groups[1].Value);
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+                else if (botToBotsPtrn.IsMatch(command))
+                {
+                    int sourceBot = Convert.ToInt32(botToBotsPtrn.Match(command).Groups[1].Value);
+                    int targetBot1 = Convert.ToInt32(botToBotsPtrn.Match(command).Groups[2].Value);
+                    int targetBot2 = Convert.ToInt32(botToBotsPtrn.Match(command).Groups[3].Value);
+                    if (twoSortedNumbers(bots, sourceBot)[0] == -1)
+                        continue;
+
+                    bots[targetBot1, freeBotIndex(bots, targetBot1)] =
+                        twoSortedNumbers(bots, sourceBot)[0];
+                    bots[targetBot2, freeBotIndex(bots, targetBot2)] =
+                        twoSortedNumbers(bots, sourceBot)[1];
+                    bots[sourceBot, 0] = 0;
+                    bots[sourceBot, 1] = 0;
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+                else if (valueToOutputPtrn.Match(command).Groups[5].Value != "")
+                {
+                    int sourceBot = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[1].Value);
+                    if (twoSortedNumbers(bots, sourceBot)[0] == -1)
+                        continue;
+
+                    int output1 = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[2].Value);
+                    int output2 = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[2].Value);
+                    if (output1 == 0 || output1 == 1 || output1 == 2)
+                        outputs[output1] = twoSortedNumbers(bots, sourceBot)[0];
+                    else if (output2 == 0 || output2 == 1 || output2 == 2)
+                        outputs[output2] = twoSortedNumbers(bots, sourceBot)[1];
+
+                    bots[sourceBot, 0] = 0;
+                    bots[sourceBot, 1] = 0;
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+                else if (valueToOutputPtrn.IsMatch(command))
+                {
+                    int sourceBot = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[1].Value);
+                    int targetBot = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[4].Value);
+                    if (twoSortedNumbers(bots, sourceBot)[0] == -1)
+                        continue;
+
+                    int output1 = Convert.ToInt32(valueToOutputPtrn.Match(command).Groups[2].Value);
+
+                    if (output1 == 0 || output1 == 1 || output1 == 2)
+                        outputs[output1] = twoSortedNumbers(bots, sourceBot)[0];
+
+                    bots[targetBot, freeBotIndex(bots, targetBot)] =
+                        twoSortedNumbers(bots, sourceBot)[1];
+                    bots[sourceBot, 0] = 0;
+                    bots[sourceBot, 1] = 0;
+
+                    input = input.Replace(command + "\r\n", "");
+                }
+            }
+            return outputs[0]*outputs[1]*outputs[2];
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
@@ -485,8 +889,35 @@ namespace AoC_2016
             {
                 textBoxAnyDayAnswer.Text = GetDay6_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
             }
+            else if (radioButtonDay6_2.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay6_2(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            else if (radioButtonDay7_1.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay7_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            else if (radioButtonDay8_1.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay8_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            else if (radioButtonDay8_2.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay8_2(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            else if (radioButtonDay9_1.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay9_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            else if (radioButtonDay10_1.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay10_1(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
+            else if (radioButtonDay10_2.IsChecked.Value)
+            {
+                textBoxAnyDayAnswer.Text = GetDay10_2(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
+            }
         }
-
 
     }
 }
