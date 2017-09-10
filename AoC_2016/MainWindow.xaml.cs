@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using System.Security.Cryptography;
 using System.Threading;
+using AoC_2016.Codeabbey;
 
 namespace AoC_2016
 {
@@ -841,6 +842,25 @@ namespace AoC_2016
             return outputs[0]*outputs[1]*outputs[2];
         }
 
+        public int GetDay11_1(string filePath)
+        {
+            //int[,] bots = new int[500, 2];
+            //int[] outputs = new int[3];
+            //StreamReader fileReader = new StreamReader(filePath);
+            //string input = fileReader.ReadToEnd();
+            //fileReader.Close();
+            //Regex valueToBotPtrn = new Regex(@"value (\d+) goes to bot (\d+)");
+
+            //StringReader strReader = new StringReader(input);
+            //while (input.Length != 0)
+            //{
+
+            //}
+
+            //return outputs[0] * outputs[1] * outputs[2];
+            return 0;
+        }
+
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             textBoxDay2_1Answer.Text = GetDay2_1(Convert.ToString(textBoxDay2_1Path.Text)).ToString();
@@ -917,6 +937,12 @@ namespace AoC_2016
             {
                 textBoxAnyDayAnswer.Text = GetDay10_2(Convert.ToString(textBoxAnyDayPath.Text)).ToString();
             }
+        }
+
+        private void buttonCodeabbeyOpen_Click(object sender, RoutedEventArgs e)
+        {
+            CodeabbeyWindow codeabbeyWindow = new CodeabbeyWindow();
+            codeabbeyWindow.Show();
         }
 
     }

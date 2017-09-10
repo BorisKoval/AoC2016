@@ -1,0 +1,32 @@
+﻿<Window x:Class="AoC_2016.CodeabbeyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CodeabbeyWindow" Height="411" Width="475">
+    <Grid>
+        <RadioButton Content="#1" Height="16" HorizontalAlignment="Left" Margin="40,124,0,0" Name="radioButton1" VerticalAlignment="Top" IsChecked="False" IsEnabled="True" />
+        <TextBox Height="86" HorizontalAlignment="Left" Margin="12,23,0,0" Name="textBoxInput" VerticalAlignment="Top" Width="200" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" AcceptsReturn="True" />
+        <TextBox Height="104" HorizontalAlignment="Left" Margin="235,23,0,0" Name="textBoxAnswer" VerticalAlignment="Top" Width="198" AcceptsReturn="True" />
+        <Button Content="Button" Height="50" HorizontalAlignment="Left" Margin="284,156,0,0" Name="button1" VerticalAlignment="Top" Width="110" Click="button1_Click" />
+        <RadioButton Content="#2" Height="16" HorizontalAlignment="Left" Margin="40,146,0,0" Name="radioButton2" VerticalAlignment="Top" />
+        <RadioButton Content="#3" Height="16" HorizontalAlignment="Left" Margin="40,168,0,0" Name="radioButton3" VerticalAlignment="Top" />
+        <RadioButton Content="#4" Height="16" HorizontalAlignment="Left" Margin="40,190,0,0" Name="radioButton4" VerticalAlignment="Top" />
+        <RadioButton Content="#5" Height="16" HorizontalAlignment="Left" IsChecked="False" Margin="40,212,0,0" Name="radioButton5" VerticalAlignment="Top" />
+        <RadioButton Content="#15" Height="16" HorizontalAlignment="Left" Margin="40,234,0,0" Name="radioButton15" VerticalAlignment="Top" />
+        <RadioButton Content="#6" Height="16" HorizontalAlignment="Left" Margin="40,256,0,0" Name="radioButton6" VerticalAlignment="Top" />
+        <RadioButton Content="#7" Height="16" HorizontalAlignment="Left" Margin="40,278,0,0" Name="radioButton7" VerticalAlignment="Top" />
+        <RadioButton Content="#20" Height="16" HorizontalAlignment="Left" Margin="40,299,0,0" Name="radioButton20" VerticalAlignment="Top" IsChecked="False" />
+        <RadioButton Content="#33" Height="16" HorizontalAlignment="Left" Margin="40,321,0,0" Name="radioButton33" VerticalAlignment="Top" />
+        <RadioButton Content="#41" Height="16" HorizontalAlignment="Left" IsChecked="True" IsEnabled="True" Margin="123,124,0,0" Name="radioButton41" VerticalAlignment="Top" />
+        <RadioButton Content="#28" Height="16" HorizontalAlignment="Left" Margin="123,146,0,0" Name="radioButton28" VerticalAlignment="Top" />
+        <RadioButton Content="#8" Height="16" HorizontalAlignment="Left" Margin="123,168,0,0" Name="radioButton8" VerticalAlignment="Top" />
+        <RadioButton Content="#13" Height="16" HorizontalAlignment="Left" Margin="123,190,0,0" Name="radioButton13" VerticalAlignment="Top" />
+        <RadioButton Content="#55555" Height="16" HorizontalAlignment="Left" IsChecked="False" Margin="123,212,0,0" Name="radioButton1555555" VerticalAlignment="Top" />
+        <RadioButton Content="#6" Height="16" HorizontalAlignment="Left" Margin="123,234,0,0" Name="radioButton16" VerticalAlignment="Top" />
+        <RadioButton Content="#7" Height="16" HorizontalAlignment="Left" Margin="123,256,0,0" Name="radioButton17" VerticalAlignment="Top" />
+        <RadioButton Content="#8" Height="16" HorizontalAlignment="Left" Margin="123,278,0,0" Name="radioButton18" VerticalAlignment="Top" />
+        <RadioButton Content="#20" Height="16" HorizontalAlignment="Left" Margin="123,299,0,0" Name="radioButton19" VerticalAlignment="Top" />
+        <RadioButton Content="#8888" Height="16" HorizontalAlignment="Left" Margin="123,321,0,0" Name="radioButton20000" VerticalAlignment="Top" />
+        <Label Content="INPUT " Height="28" HorizontalAlignment="Left" Margin="76,0,0,0" Name="label1" VerticalAlignment="Top" />
+        <Label Content="OUTPUT" Height="28" HorizontalAlignment="Left" Margin="294,0,0,0" Name="label2" VerticalAlignment="Top" />
+    </Grid>
+</Window>
