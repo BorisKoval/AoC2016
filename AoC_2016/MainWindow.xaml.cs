@@ -944,6 +944,5 @@ namespace AoC_2016
             CodeabbeyWindow codeabbeyWindow = new CodeabbeyWindow();
             codeabbeyWindow.Show();
         }
-
     }
 }
