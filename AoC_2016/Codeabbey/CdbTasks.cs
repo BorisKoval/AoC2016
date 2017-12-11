@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace AoC_2016.Codeabbey
 {
-    static class CdbTasks
+    class CdbTasks
     {
         #region Solved
         static public double taskOne(string Input)
@@ -1351,6 +1351,429 @@ namespace AoC_2016.Codeabbey
             reader.Close();
             return Output;
         }
+
+        static public string task62(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\d+) (\d+)");
+            List<int> primes = new List<int>();
+            int a = 0, b = 0;
+            for (int j = 2; j < 3000000; j++)
+                primes.Add(j);
+            primes = Primes(primes);
+            foreach (Match nums in inputPtrn.Matches(Input))
+            {
+                a = Convert.ToInt32(nums.Groups[1].Value);
+                b = Convert.ToInt32(nums.Groups[2].Value);
+                Output += primes.Count(x => x >= a & x <= b) + " ";
+            }
+            return Output;
+        }
+
+        static public string task121(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\d+)");
+            LinkedList<int> arr = new LinkedList<int>();
+            int i=0, num=0;
+            foreach (Match sNum in inputPtrn.Matches(Input))
+            {
+                num = Convert.ToInt32(sNum.Value);
+                arr.AddLast(num);
+                if (arr.Count < 2)
+                    continue;
+                for (i = 0; i < arr.Count; i++)
+                {
+                    if (arr.ToList()[i] > num)
+                    {
+                        arr.AddBefore(arr.Find(arr.ToList()[i]), num);
+                        arr.RemoveLast();
+                        break;
+                    }
+                }
+                Output += i == arr.Count ? "0 " : arr.Count - i - 1 + " ";
+            }
+            return Output;
+        }
+
+        static public string task134(string Input)
+        {
+            string Output = "0 0 ";
+            int width = Convert.ToInt32(Input.Split(' ')[0]);
+            int height = Convert.ToInt32(Input.Split(' ')[1]);
+            int length = Convert.ToInt32(Input.Split(' ')[2]);
+            int x = 1, y = 1, x0 = 0, y0 = 0;
+            for (int i = 0; i < 100; i++)
+            {
+                Output += x + " " + y + " ";
+                if ((x - x0 > 0 & x != width - length) | x == 0)
+                {
+                    x0 = x;
+                    x++;
+                }
+                else
+                {
+                    x0 = x;
+                    x--;
+                }
+                if ((y - y0 > 0 & y != height - 1) | y == 0)
+                {
+                    y0 = y;
+                    y++;
+                }
+                else
+                {
+                    y0 = y;
+                    y--;
+                }
+            }
+            return Output;
+        }
+
+        static public string task127(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\w+)");
+            StreamReader reader = new StreamReader(@"tast127dict.txt");
+            string[] dict = reader.ReadToEnd().Split(new string[] {"\r\n"}, StringSplitOptions.None);
+            reader.Close();
+            int count = 0;
+            foreach (Match inWord in inputPtrn.Matches(Input))
+            {
+                foreach (string word in dict)
+                {
+                    if (word == inWord.Value)
+                        continue;
+                    var temp = word.ToList();
+                    var temp2 = inWord.Value.ToList();
+                    temp.Sort();
+                    temp2.Sort();
+                    count += new string(temp.ToArray()) == new string(temp2.ToArray()) ? 1 : 0;
+                }
+                Output += count + " ";
+                count = 0;
+            }
+            return Output;
+        }
+
+        static public string task75(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\d) (\d) (\d) (\d) (\d)");
+            foreach (Match dices in inputPtrn.Matches(Input))
+            {
+                string[] temp=dices.Value.Split(' ');
+                if (temp.Distinct().ToList().Count == 4)
+                    Output += "pair ";
+                else if (temp.Distinct().ToList().Count == 3)
+                {
+                    if (temp.GroupBy(x => x).Max(x=>x.Count())==3)
+                        Output += "three ";
+                    else
+                        Output += "two-pairs ";
+                }
+                else if (temp.Distinct().ToList().Count == 2)
+                {
+                    if (temp.GroupBy(x => x).Max(x => x.Count()) == 4)
+                        Output += "four ";
+                    else
+                        Output += "full-house ";
+                }
+                else if (temp.Distinct().ToList().Count == 1)
+                    Output += "yacht ";
+                else if (!temp.ToList().Contains("6"))
+                    Output += "small-straight ";
+                else if (!temp.ToList().Contains("1"))
+                    Output += "big-straight ";
+                else
+                    Output += "none ";
+            }
+            return Output;
+        }
+
+        static public string task74(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\d+):(\d+)");
+            double hour = 0, min = 0, hourX = 0, hourY = 0, minX = 0, minY = 0;
+            foreach (Match time in inputPtrn.Matches(Input))
+            {
+                min = Convert.ToInt32(time.Groups[2].Value);
+                hour = (Convert.ToInt32(time.Groups[1].Value) % 12) + min / 60;
+                hourX = 10 + 6 * Math.Sin((30 * hour) * Math.PI / 180);
+                hourY = 10 + 6 * Math.Cos((30 * hour) * Math.PI / 180);
+                minX = 10 + 9 * Math.Sin((6 * min) * Math.PI / 180);
+                minY = 10 + 9 * Math.Cos((6 * min) * Math.PI / 180);
+                Output += string.Format("{0:0.0#######} {1:0.0#######} {2:0.0#######} {3:0.0#######} ", hourX, hourY, minX, minY);
+            }
+            return Output.Replace(',', '.');
+        }
+
+        //static public string ArtemTask(string Input)
+        //{
+        //    int sum = 0, a, b;
+        //    for (int i = 1; i < 10; i++)
+        //    {
+        //        a = 0;
+        //        b = i;
+        //        for (int j = 0; j <= i; j++)
+        //        {
+        //            int num = i * 100 + a * 10 + b;
+        //            sum += num;
+        //            a++;
+        //            b--;
+        //        }
+        //    }
+        //    return sum.ToString();
+        //}
+
+        static public string task36(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\d+) (\d)");
+            int[] asd = new int[4];
+            List<string> cases = new List<string>();
+            cases = inputPtrn.Matches(Input).Cast<Match>().Select(m => m.Value).ToList();
+            List<int>[] codes = new List<int>[4] { new List<int>(), new List<int>(), new List<int>(), new List<int>() };
+            for (int i=0;i<4;i++)
+            {
+                for (int j = 0; j < 10; j++)
+                    codes[i].Add(j);
+            }            
+            while (cases.Count !=0)
+            {
+                for (int i = 0; i < cases.Count; i++)
+                {
+                    if (cases[i].Substring(5, 1) == "0")
+                    {
+                        codes[0].Remove(Convert.ToInt32(cases[i].Substring(0, 1)));
+                        codes[1].Remove(Convert.ToInt32(cases[i].Substring(1, 1)));
+                        codes[2].Remove(Convert.ToInt32(cases[i].Substring(2, 1)));
+                        codes[3].Remove(Convert.ToInt32(cases[i].Substring(3, 1)));
+                        cases.RemoveAt(i);
+                    }
+                    else if (cases[i].Substring(5, 1) != "0")
+                    {
+                        int index = 0;
+                        int a = 0;
+                        //int a = cases[i].Substring(0, 4).Count(x => codes[index++].Contains(Convert.ToInt32(x.ToString())));
+                        int b = Convert.ToInt32(cases[i].Substring(5, 1));
+                        List<int> indexes = new List<int>();
+                        foreach (char ch in cases[i])
+                        {
+                            if (ch == ' ')
+                                break;
+                            if (codes[index].Contains(Convert.ToInt32(ch.ToString())))
+                            {
+                                a++;
+                                indexes.Add(index);
+                            }
+                            index++;
+                        }
+                        if (a == b)
+                        {
+                            foreach (int n in indexes)
+                                codes[n].RemoveAll(x => x != Convert.ToInt32(cases[i].Substring(n, 1)));
+                            cases.RemoveAt(i);
+                        }
+                        else if (b <= codes.Count(x => x.Count == 1))
+                        {
+                            for (int j = 0; j < 4; j++)
+                            {
+                                if (codes[j].Count == 1)
+                                    continue;
+                                codes[j].Remove(Convert.ToInt32(cases[i].Substring(j, 1)));
+                            }
+                            cases.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            Output = codes[0][0].ToString() + codes[1][0].ToString() + codes[2][0].ToString() + codes[3][0].ToString();
+            return Output;
+        }
+
+        static public string task171(string Input)
+        {
+            string Output = "";
+            Regex inputPtrn = new Regex(@"(\d+) (\d+,\d+)");
+            double D = 0, A = 0;
+            foreach (Match tree in inputPtrn.Matches(Input.Replace('.', ',')))
+            {
+                D = Convert.ToDouble(tree.Groups[1].Value);
+                A = Convert.ToDouble(tree.Groups[2].Value) % 90;
+                Output += Math.Round(D * Math.Tan(A * Math.PI / 180)) + " ";
+            }
+            return Output;
+        }
+
+        static public string task73(string Input)
+        {
+            string Output = "", line = "";
+            StringReader reader = new StringReader(Input);
+            double distance = 0, height = 0, width = 0;
+            while ((line = reader.ReadLine()) != null)
+            {
+                height = 0; width = 0;
+                foreach (char ch in line)
+                {
+                    switch (ch)
+                    {
+                        case 'A':
+                            width++;
+                            break;
+                        case 'D':
+                            width--;
+                            break;
+                        case 'B':
+                            width += 0.5;
+                            height += 0.8660254037844386;
+                            break;
+                        case 'C':
+                            width -= 0.5;
+                            height += 0.8660254037844386;
+                            break;
+                        case 'F':
+                            width += 0.5;
+                            height -= 0.8660254037844386;
+                            break;
+                        case 'E':
+                            width -= 0.5;
+                            height -= 0.8660254037844386;
+                            break;
+                    }
+                }
+                distance = Math.Sqrt(width * width + height * height);
+                Output += string.Format("{0:0.0#######} ", distance).Replace(',','.');
+            }
+            return Output;
+        }
+
+        static public string task156(string Input)
+        {
+            string Output = "", cardNumbers = "", tempNumbers="";
+            StringReader reader = new StringReader(Input);
+            int n=0;
+            while ((cardNumbers = reader.ReadLine()) != null)
+            {
+                if (cardNumbers.Contains('?'))
+                {
+                    n = cardNumbers.IndexOf('?');
+                    cardNumbers = cardNumbers.Replace('?', '0');
+                    while (GetChecksum(cardNumbers) % 10 != 0)
+                    {
+                        var temp = cardNumbers.ToArray();
+                        temp[n] = (Convert.ToInt16(cardNumbers.Substring(n, 1)) + 1).ToString()[0];
+                        cardNumbers = new string(temp);
+                    }
+                }
+                else
+                {
+                    tempNumbers = cardNumbers;
+                    n = 0;
+                    while (GetChecksum(cardNumbers) % 10 != 0)
+                    {
+                        cardNumbers = tempNumbers;
+                        var temp = cardNumbers.ToArray();
+                        char t = temp[n];
+                        temp[n] = temp[n + 1];
+                        temp[n + 1] = t;
+                        cardNumbers = new string(temp);
+                        n++;
+                    }
+                }
+                Output += cardNumbers + " ";
+            }
+            return Output;
+        }
+        public static int GetChecksum(string cardNumbers)
+        {
+            int checksum = 0, n=0;
+            for (int i = 15; i >= 0; i--)
+            {
+                n = Convert.ToInt16(cardNumbers[i].ToString());
+                if (i % 2 != 0)
+                    checksum += n;
+                else
+                    checksum += n * 2 < 10 ? n * 2 : n * 2 - 9;
+            }
+            return checksum;
+        }
+
+
+        static public string task54(string Input)
+        {
+            string Output = "";
+            int[,] test = new int[3, 3] { { 3, 2, 1 }, { 2, 1, 0 }, { 1, 0, 0 } };
+
+
+            return Search(test, 4);
+        }
+
+
+        public static string Search(int[,] m, int N)
+        {
+            string Output = "";
+            bool flag = false;
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                for (int j = 0; j < m.GetLength(1); j++)
+                {
+                    if (m[i, j] == N)
+                    {
+                        flag = true;
+                        Output += i + " " + j + "; ";
+                    }
+                }
+            }
+            if (flag == true)
+                return Output;
+            else
+                return "Not found";
+        }
+
+        public static string BSearch(int[,] m, int N)//binary search
+        {
+            string Output = "";
+            bool flag = false;
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                for (int j = 0; j < m.GetLength(1); j++)
+                {
+                    if (m[i, j] == N)
+                    {
+                        flag = true;
+                        Output += i + " " + j + "; ";
+                    }
+                }
+            }
+            if (flag == true)
+                return Output;
+            else
+                return "Not found";
+        }
+
+        /*
+
+Well, if you actually do have a sorted array, you can do a binary search until you find one of the indexes you're looking for, and from there, the rest should be easy to find since they're all next to each-other.
+
+once you've found your first one, than you go find all the instances before it, and then all the instances after it.
+
+Using that method you should get roughly O(lg(n)+k) where k is the number of occurrences of the value that you're searching for.
+
+EDIT:
+
+And, No, you will never be able to access all k values in anything less than O(k) time.
+
+
+Second edit: so that I can feel as though I'm actually contributing something useful:
+
+Instead of just searching for the first and last occurrences of X than you can do a binary search for the first occurence and a binary search for the last occurrence. which will result in O(lg(n)) total. once you've done that, you'll know that all the between indexes also contain X(assuming that it's sorted)
+
+You can do this by searching checking if the value is equal to x , AND checking if the value to the left(or right depending on whether you're looking for the first occurrence or the last occurrence) is equal to x.
+*/
+
+
 
 
     }

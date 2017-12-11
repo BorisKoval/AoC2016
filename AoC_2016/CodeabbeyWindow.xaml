@@ -71,5 +71,16 @@
         <RadioButton Content="#72" Height="16" HorizontalAlignment="Left" IsChecked="True" Margin="334,337,0,0" Name="radioButton72" VerticalAlignment="Top" />
         <RadioButton Content="#69" Height="16" HorizontalAlignment="Left" Margin="385,140,0,0" Name="radioButton69" VerticalAlignment="Top" IsChecked="True" />
         <RadioButton Content="#39" Height="16" HorizontalAlignment="Left" Margin="385,163,0,0" Name="radioButton39" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#62" Height="16" HorizontalAlignment="Left" Margin="385,185,0,0" Name="radioButton62" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#121" Height="16" HorizontalAlignment="Left" Margin="385,207,0,0" Name="radioButton121" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#134" Height="16" HorizontalAlignment="Left" Margin="385,229,0,0" Name="radioButton134" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#127" Height="16" HorizontalAlignment="Left" Margin="385,251,0,0" Name="radioButton127" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#75" Height="16" HorizontalAlignment="Left" Margin="385,272,0,0" Name="radioButton75" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#74" Height="16" HorizontalAlignment="Left" Margin="385,295,0,0" Name="radioButton74" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#36" Height="16" HorizontalAlignment="Left" Margin="385,316,0,0" Name="radioButton36" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#171" Height="16" HorizontalAlignment="Left" Margin="385,337,0,0" Name="radioButton171" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#73" Height="16" HorizontalAlignment="Left" Margin="457,228,0,0" Name="radioButton73" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#156" Height="16" HorizontalAlignment="Left" Margin="457,251,0,0" Name="radioButton156" VerticalAlignment="Top" IsChecked="True" />
+        <RadioButton Content="#54" Height="16" HorizontalAlignment="Left" Margin="457,272,0,0" Name="radioButton54" VerticalAlignment="Top" IsChecked="True" />
     </Grid>
 </Window>

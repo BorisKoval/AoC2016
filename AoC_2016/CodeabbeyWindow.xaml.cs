@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using AoC_2016.Codeabbey;
+using System.Threading;
 
 namespace AoC_2016
 {
@@ -150,6 +151,29 @@ namespace AoC_2016
                 textBoxAnswer.Text = (Codeabbey.CdbTasks.task69(textBoxInput.Text)).ToString();
             else if (radioButton39.IsChecked == true)
                 textBoxAnswer.Text = (Codeabbey.CdbTasks.task39(textBoxInput.Text)).ToString();
+            else if (radioButton62.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task62(textBoxInput.Text)).ToString();
+            else if (radioButton121.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task121(textBoxInput.Text)).ToString();
+            else if (radioButton134.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task134(textBoxInput.Text)).ToString();
+            else if (radioButton127.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task127(textBoxInput.Text)).ToString();
+            else if (radioButton75.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task75(textBoxInput.Text)).ToString();
+            else if (radioButton74.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task74(textBoxInput.Text)).ToString();
+            else if (radioButton36.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task36(textBoxInput.Text)).ToString();
+            else if (radioButton171.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task171(textBoxInput.Text)).ToString();
+            else if (radioButton73.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task73(textBoxInput.Text)).ToString();
+            else if (radioButton156.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task156(textBoxInput.Text)).ToString();
+            else if (radioButton54.IsChecked == true)
+                textBoxAnswer.Text = (Codeabbey.CdbTasks.task54(textBoxInput.Text)).ToString();
         }
+
     }
 }
