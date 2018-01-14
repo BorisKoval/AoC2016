@@ -35,6 +35,7 @@
         <RadioButton Content="DAY 9.1" Height="16" HorizontalAlignment="Left" IsChecked="False" Margin="171,392,0,0" Name="radioButtonDay9_1" VerticalAlignment="Top" />
         <RadioButton Content="DAY 10.1" HorizontalAlignment="Left" IsChecked="False" Margin="171,436,0,153" Name="radioButtonDay10_1" IsEnabled="True" />
         <RadioButton Content="DAY 10.2" Height="16" HorizontalAlignment="Left" IsChecked="True" Margin="171,458,0,0" Name="radioButtonDay10_2" VerticalAlignment="Top" />
-        <Button Content="CODEABBEY" Height="81" HorizontalAlignment="Left" Margin="560,30,0,0" Name="buttonCodeabbeyOpen" VerticalAlignment="Top" Width="174" Click="buttonCodeabbeyOpen_Click" />
+        <Button Content="CODEABBEY" Height="52" HorizontalAlignment="Left" Margin="562,12,0,0" Name="buttonCodeabbeyOpen" VerticalAlignment="Top" Width="195" Click="buttonCodeabbeyOpen_Click" />
+        <Button Content="AoC 2017" Height="52" HorizontalAlignment="Left" Margin="562,85,0,0" Name="buttonAOC2017Open" VerticalAlignment="Top" Width="195" Click="buttonAOC2017Open_Click" />
     </Grid>
 </Window>

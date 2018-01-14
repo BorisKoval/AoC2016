@@ -939,10 +939,16 @@ namespace AoC_2016
             }
         }
 
-        private void buttonCodeabbeyOpen_Click(object sender, RoutedEventArgs e)
+        private void buttonCodeabbeyOpen_Click(object sender, RoutedEventArgs e) // Codeabbey tasks open  
         {
             CodeabbeyWindow codeabbeyWindow = new CodeabbeyWindow();
-            codeabbeyWindow.Show();
+            codeabbeyWindow.ShowDialog();
+        }
+
+        private void buttonAOC2017Open_Click(object sender, RoutedEventArgs e) // AoC2017 tasks open  
+        {
+            AoC2017Window aoc2017Window = new AoC2017Window();
+            aoc2017Window.ShowDialog();
         }
     }
 }
